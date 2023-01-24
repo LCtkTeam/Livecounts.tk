@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../../partials/head', { title: `Twitter statistics for ${name}`
+    }) %>
+    <link rel="stylesheet" href="/ess/odometer.css" />
+    <script src="/ess/odometer.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+    </style>
+  </head>
+  <body class="text-white bg-[#1b1b1b]">
+    <%- include('../../partials/navbar') %>
+    <main class="text-center m-4">
+      <div class="bg-black p-4 flex flex-col items-center">
+        <img src="<%= avatar %>" width="80" class="rounded-full" />
+        <h1 class="mt-2 text-2xl"><%= name %></h1>
+        <span
+          id="followers"
+          class="odometer font-['Roboto'] text-9xl leading-[1.05em]"
+          >0</span
+        >
+        <p class="mt-2 text-sm">Followers</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 mt-4 gap-3">
+        <div class="bg-black p-4">
+          <h1 class="text-lg">Following</h1>
+          <span
+            id="following"
+            class="odometer font-['Roboto'] text-5xl leading-[1.05em]"
+            >0</span
+          >
+        </div>
+        <div class="bg-black p-4">
+          <h1 class="text-lg">Likes</h1>
+          <span
+            id="likes"
+            class="odometer font-['Roboto'] text-5xl leading-[1.05em]"
+            >0</span
+          >
+        </div>
+      </div>
+      <div class="bg-black p-4 mt-4 flex flex-col items-center">
+        <div id="chart" class="w-full"></div>
+      </div>
+    </main>
+  </body>
+  <script>
+    const lineColor = "#858585";
+    const chart = new Highcharts.chart({
+      chart: {
+        renderTo: "chart",
+        type: "line",
+        zoomType: "x",
+        backgroundColor: "transparent",
+        plotBorderColor: "transparent",
+        animation: true,
+      },
+      title: {
+        text: "",
+      },
+      xAxis: {
+        type: "datetime",
+        tickPixelInterval: 500,
+        labels: {
+          style: {
+            color: lineColor,
+          },
+        },
+        gridLineColor: lineColor,
+        lineColor: lineColor,
+        minorGridLineColor: "#858585",
+        tickColor: lineColor,
+        title: {
+          style: {
+            color: lineColor,
+          },
+        },
+      },
+      yAxis: {
+        title: {
+          text: "",
+        },
+        labels: {
+          style: {
+            color: lineColor,
+          },
+        },
+        gridLineColor: lineColor,
+        lineColor: lineColor,
+        minorGridLineColor: "#858585",
+        tickColor: lineColor,
+      },
+      credits: {
+        enabled: true,
+        text: "Livecounts.tk",
+        href: "https://livecounts.tk",
+      },
+      tooltip: {
+        shared: true,
+        formatter: function () {
+          var index = this.points[0].series.xData.indexOf(this.x);
+          var lastY = this.points[0].series.yData[index - 1];
+          var dif = this.y - lastY;
+          var r =
+            Highcharts.dateFormat("%A %b %e, %H:%M:%S", new Date(this.x)) +
+            '<br><span style="color:black">\u25CF </span>' +
+            this.points[0].series.name +
+            ": <b>" +
+            Highcharts.numberFormat(this.y, 0);
+          if (dif < 0) {
+            r +=
+              '<span style="color:#ff0000;font-weight:bold;"> (' +
+              Highcharts.numberFormat(dif, 0) +
+              ")</span>";
+          }
+          if (dif > 0) {
+            r +=
+              '<span style="color:#00bb00;font-weight:bold;"> (+' +
+              Highcharts.numberFormat(dif, 0) +
+              ")</span>";
+          }
+          return r;
+        },
+      },
+      series: [
+        {
+          showInLegend: false,
+          name: "<%= name %>",
+          marker: { enabled: false },
+          color: "#ec4899",
+          backgroundColor: "white",
+          lineWidth: 3,
+        },
+      ],
+    });
+
+    setInterval(() => {
+      fetch("/api/tiktok/user/stats/<%= id %>")
+        .then((res) => res.json())
+        .then((data) => {
+          document.getElementById("followers").textContent =
+            data.counts.followers;
+          document.getElementById("following").textContent =
+            data.counts.following;
+          document.getElementById("likes").textContent = data.counts.likes;
+
+          if (chart.series[0].points.length === 3600)
+            chart.series[0].data[0].remove();
+          chart.series[0].addPoint([Date.now(), data.counts.followers]);
+        });
+    }, 2000);
+  </script>
+</html>
