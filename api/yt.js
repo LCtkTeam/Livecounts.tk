@@ -64,6 +64,20 @@ router.get("/video/stats/:id", async (req, res) => {
   });
 });
 
+router.get("/stream/stats/:id", async (req, res) => {
+  const { id } = req.params;
+  const { data } = await axios.get(
+    `	https://mixerno.space/api/youtube-stream-counter/user/${id}`
+  );
+  return res.json({
+    counts: {
+      viewers: data.counts[0].count,
+      likes: data.counts[2].count,
+      views: data.counts[4].count,
+    },
+  });
+});
+
 router.get("/total", (_, res) => {
   let hoursUploadedPerMinute = 500;
   let minutesinHoursUploadedPerMinute = hoursUploadedPerMinute * 60;

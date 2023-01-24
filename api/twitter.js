@@ -3,21 +3,16 @@ const axios = require("axios");
 const router = express.Router();
 
 router.get("/user/stats/:username", async (req, res) => {
-  try {
-    const { data } = await axios.get(
-      `https://api.subscriberwars.space/twitter/${req.params.username}`
-    );
-    return res.json({
-      counts: {
-        followers: data.followers,
-        following: data.following,
-        tweets: data.tweets,
-      },
-    });
-  } catch (err) {
-    console.error(err);
-    res.json(null);
-  }
+  const { data } = await axios.get(
+    `https://api.subscriberwars.space/twitter/${req.params.username}`
+  );
+  return res.json({
+    counts: {
+      followers: data.followers,
+      following: data.following,
+      tweets: data.tweets,
+    },
+  });
 });
 
 module.exports = router;

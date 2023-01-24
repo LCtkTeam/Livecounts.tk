@@ -30,6 +30,21 @@ router.get("/video/:id", async (req, res) => {
   });
 });
 
+router.get("/stream/search", (_, res) => {
+  res.render("youtube/stream/search");
+});
+
+router.get("/stream/:id", async (req, res) => {
+  const { id } = req.params;
+  const { data } = await axios.get(
+    `https://mixerno.space/api/youtube-stream-counter/user/${id}`
+  );
+  res.render("youtube/stream/stats", {
+    id,
+    title: data.user[0].count,
+  });
+});
+
 router.get("/total", (_, res) => {
   res.render("youtube/total");
 });
