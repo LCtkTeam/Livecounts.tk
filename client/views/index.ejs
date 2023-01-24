@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head', { title: "Home" }) %>
+  </head>
+  <body class="text-white bg-[#1b1b1b]">
+    <%- include('./partials/navbar') %>
+    <main class="text-center m-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="bg-black p-5">
+          <h1 class="flex justify-center items-center text-xl text-red-600">
+            <i class="bi bi-youtube mr-1"></i> YouTube
+          </h1>
+          <div>
+            <a href="/youtube/channel/search" class="text-3xl font-bold"
+              >Channel statistics</a
+            >
+            <br />
+            <a href="/youtube/video/search" class="text-3xl font-bold"
+              >Video statistics</a
+            >
+            <br />
+            <a href="/youtube/total" class="text-3xl font-bold">Total videos</a>
+          </div>
+        </div>
+        <div class="bg-black p-5">
+          <h1 class="flex justify-center items-center text-xl text-orange-500">
+            <i class="bi bi-mouse2-fill mr-1"></i> Clickers
+          </h1>
+          <div>
+            <a href="/clickers/toastify" class="text-3xl font-bold"
+              >Toastify Clicker</a
+            >
+          </div>
+					<div>
+            <a href="/clickers/choccy" class="text-3xl font-bold"
+              >ChoccyCounts Clicker</a
+            >
+          </div>
+        </div>
+        <div class="bg-black p-5">
+          <h1 class="flex justify-center items-center text-xl text-[#fae360]">
+            <i class="bi bi-sort-numeric-down mr-1"></i> Countify
+          </h1>
+          <div>
+            <a
+              href="/countify/stats/941671046724091968"
+              class="text-3xl font-bold"
+              >Count statistics</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

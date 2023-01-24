@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head', { title: "Total YouTube videos" }) %>
+    <link rel="stylesheet" href="/ess/odometer.css" />
+    <script src="/ess/odometer.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+    </style>
+  </head>
+  <body class="text-white bg-[#1b1b1b]">
+    <%- include('../partials/navbar') %>
+    <main class="text-center m-4">
+      <div class="bg-black p-4">
+        <h1 class="text-2xl">Total YouTube videos</h1>
+        <span
+          id="total"
+          class="odometer font-['Roboto'] text-9xl leading-[1.05em]"
+          >0</span
+        >
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 mt-4 gap-3">
+        <div class="bg-black p-4">
+          <h1 class="text-lg">Public videos</h1>
+          <span
+            id="public"
+            class="odometer font-['Roboto'] text-5xl leading-[1.05em]"
+            >0</span
+          >
+        </div>
+        <div class="bg-black p-4">
+          <h1 class="text-lg">Unlisted videos</h1>
+          <span
+            id="unlisted"
+            class="odometer font-['Roboto'] text-5xl leading-[1.05em]"
+            >0</span
+          >
+        </div>
+        <div class="bg-black p-4">
+          <h1 class="text-lg">Private videos</h1>
+          <span
+            id="private"
+            class="odometer font-['Roboto'] text-5xl leading-[1.05em]"
+            >0</span
+          >
+        </div>
+        <div class="bg-black p-4">
+          <h1 class="text-lg">Shorts</h1>
+          <span
+            id="shorts"
+            class="odometer font-['Roboto'] text-5xl leading-[1.05em]"
+            >0</span
+          >
+        </div>
+      </div>
+      <p class="mt-4 bg-black p-4 text-xl">
+        These counts are <span class="font-bold">estimated</span> using math taken
+        from
+        <a
+          href="https://youtube.com/@sfmg"
+          class="text-sky-500 hover:bg-sky-500 hover:text-black hover:px-2 hover:py-1 hover:rounded-md transition-all duration-150"
+          >Straight from MG</a
+        >.
+      </p>
+    </main>
+  </body>
+  <script>
+    setInterval(() => {
+      fetch(location.origin + "/api/youtube/total")
+        .then((res) => res.json())
+        .then((data) => {
+          document.getElementById("total").textContent = data.total;
+          document.getElementById("public").textContent = data.public;
+          document.getElementById("unlisted").textContent = data.unlisted;
+          document.getElementById("private").textContent = data.private;
+          document.getElementById("shorts").textContent = data.shorts;
+        });
+    }, 2000);
+  </script>
+</html>
