@@ -4,6 +4,7 @@ router.use(require("cors")());
 
 router.use("/clickers", require("./clickers"));
 router.use("/countify", require("./countify"));
+router.use("/twitter", require("./twitter"));
 router.use("/youtube", require("./yt"));
 
 module.exports = router;

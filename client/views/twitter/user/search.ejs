@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../../partials/head', { title: "YouTube channel search" }) %>
+  </head>
+  <script>
+    var channels = [];
+  </script>
+  <body class="text-white bg-[#1b1b1b]">
+    <%- include('../../partials/navbar') %>
+    <main class="text-center m-4">
+      <div class="bg-black p-4">
+        <form>
+          <input
+            class="block p-4 w-full text-sm bg-neutral-800 rounded-lg border-neutral-600 placeholder-neutral-400 text-white focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Search for a Twitter user..."
+            id="search"
+          />
+          <button
+            class="text-white absolute right-10 top-[7.4rem] bg-cyan-600 hover:bg-cyan-800 focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+      <div class="flex flex-col gap-3 mt-4">
+        <% [1, 2, 3, 4, 5].map(index => { %>
+        <a
+          class="channel items-center bg-black p-4 hover:scale-[1.025]"
+          style="display: none"
+        >
+          <img
+            src="https://yt3.ggpht.com/ytc/AMLnZu9ouu2eBFlCyh6lORj8YUCdNENJRst9IoU5sYf1Ig=s240-c-k-c0xffffffff-no-rj-mo"
+            class="channel-icon rounded-full"
+            width="80"
+          />
+          <div class="ml-3 text-left">
+            <h1 class="channel-name font-bold text-4xl">MrBeast</h1>
+            <p class="channel-id">100M subscribers</p>
+          </div>
+        </a>
+        <% }) %>
+      </div>
+    </main>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("form").submit(function (event) {
+        event.preventDefault();
+
+        var search = $("#search").val();
+
+        channelSearch(search);
+      });
+
+      function channelSearch(search) {
+        fetch(
+          "https://livecounts.xyz/api/twitter-live-follower-count/search/" +
+            search
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            const elems = $(".channel");
+            for (let i = 0; i < data.results.length; i++) {
+              const elem = elems[i];
+              elem.href = `/twitter/user/${data.results[i].id}`;
+              elem.style.display = "flex";
+
+              const icon = elem.querySelector(".channel-icon");
+              icon.src = data.results[i].pfp;
+
+              const name = elem.querySelector(".channel-name");
+              name.textContent = data.results[i].name;
+
+              const id = elem.querySelector(".channel-id");
+              id.textContent = "@" + data.results[i].username;
+            }
+          });
+      }
+    });
+  </script>
+</html>
