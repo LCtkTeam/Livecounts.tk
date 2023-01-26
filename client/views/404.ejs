@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head', { title: "Home" }) %>
+  </head>
+  <body class="text-white bg-[#1b1b1b]">
+    <%- include('./partials/navbar') %>
+    <main class="text-center m-4">
+      <div class="bg-black p-4">
+        <h1 class="font-bold text-6xl">Wrong turn?</h1>
+        <p class="mt-2">
+          It seems that you're lost. Don't worry, we can help. Just go back to
+          the
+          <a
+            href="/"
+            class="text-sky-500 hover:bg-sky-500 hover:text-black hover:px-2 hover:py-1 hover:rounded-md transition-all duration-150"
+            >home page</a
+          >.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
