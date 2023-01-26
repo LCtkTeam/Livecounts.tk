@@ -16,4 +16,26 @@ router.get("/choccycounts", async (_, res) => {
   return res.json(data);
 });
 
+router.get("/popcat/all", async (_, res) => {
+  try {
+    const { data } = await axios.get("https://leaderboard.popcat.click");
+    return res.json({
+      count: Object.values(data).reduce((a, b) => a + b, 0),
+    });
+  } catch {
+    return res.json(null);
+  }
+});
+
+router.get("/popcat/:country", async (req, res) => {
+  try {
+    const { data } = await axios.get("https://leaderboard.popcat.click");
+    return res.json({
+      count: data[req.params.country],
+    });
+  } catch {
+    return res.json(null);
+  }
+});
+
 module.exports = router;
