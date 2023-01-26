@@ -15,7 +15,11 @@
     <main class="text-center m-4">
       <div class="bg-black p-4 flex flex-col items-center">
         <img src="<%= avatar %>" width="80" class="rounded-full" />
-        <h1 class="mt-2 text-2xl"><%= name %></h1>
+        <h1 class="mt-2 text-3xl"><%= name %></h1>
+        <div class="mt-1 flex flex-row items-center">
+          <img src="/public/tiktok.png" class="mr-0.5" width="16" />
+          <h2 class="text-sm">@<%= username %></h2>
+        </div>
         <span
           id="followers"
           class="odometer font-['Roboto'] text-9xl leading-[1.05em]"

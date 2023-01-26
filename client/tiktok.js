@@ -14,6 +14,7 @@ router.get("/user/:id", async (req, res) => {
   res.render("tiktok/user/stats", {
     id,
     name: data.nickname,
+    username: data.username,
     avatar: data.pfp,
   });
 });

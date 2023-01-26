@@ -16,6 +16,14 @@
       <div class="bg-black p-4 flex flex-col items-center">
         <img src="<%= icon %>" width="80" class="rounded-full" />
         <h1 class="mt-2 text-2xl"><%= name %></h1>
+        <div class="mt-1 flex flex-row items-center">
+          <img
+            src="/public/countify.png"
+            class="rounded-full mr-1"
+            width="16"
+          />
+          <h2 class="text-sm"><%= id %></h2>
+        </div>
         <span
           id="count"
           class="odometer font-['Roboto'] text-9xl leading-[1.05em]"

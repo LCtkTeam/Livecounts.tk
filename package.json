@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
-    "build": "npx tailwindcss -i ./client/ess/basics.css -o ./client/ess/tailwind.css"
+    "build": "tailwindcss -i ./client/ess/basics.css -o ./client/ess/tailwind.css",
+    "build:watch": "tailwindcss -i ./client/ess/basics.css -o ./client/ess/tailwind.css --watch"
   },
   "keywords": [],
   "author": "LC.tk Team (https://livecounts.tk)",

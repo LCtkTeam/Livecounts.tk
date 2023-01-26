@@ -12,6 +12,7 @@ router.get("/channel/:id", async (req, res) => {
   res.render("youtube/channel/stats", {
     id,
     name: data.name,
+    handle: data.vanityUrl.split("http://www.youtube.com/")[1],
   });
 });
 
