@@ -5,9 +5,7 @@ const router = express.Router();
 
 router.get("/stats/:id", async (req, res) => {
   const { id } = req.params;
-  const { data } = await axios.get(
-    `https://countify.imtca.repl.co/api/${id}/info`
-  );
+  const { data } = await axios.get(`https://countify.cf/api/${id}/info`);
   res.render("countify/stats", {
     id,
     name: data.name,
