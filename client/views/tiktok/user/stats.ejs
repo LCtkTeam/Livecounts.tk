@@ -10,10 +10,10 @@
       @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
     </style>
   </head>
-  <body class="text-white bg-[#1b1b1b]">
+  <body class="bg-[#1b1b1b] text-white">
     <%- include('../../partials/navbar') %>
-    <main class="text-center m-4">
-      <div class="bg-black p-4 flex flex-col items-center">
+    <main class="m-4 text-center">
+      <div class="flex flex-col items-center bg-black p-4">
         <img src="<%= avatar %>" width="80" class="rounded-full" />
         <h1 class="mt-2 text-3xl"><%= name %></h1>
         <div class="mt-1 flex flex-row items-center">
@@ -21,31 +21,30 @@
           <h2 class="text-sm">@<%= username %></h2>
         </div>
         <span
-          id="followers"
-          class="odometer font-['Roboto'] text-7xl sm:text-7xl md:text-[5.5rem] lg:text-8xl xl:text-9xl leading-[1.05em]"
+          id="<%= counts[count][0] %>"
+          class="odometer font-['Roboto'] text-7xl leading-[1.05em] sm:text-7xl md:text-[5.5rem] lg:text-8xl xl:text-9xl"
           >0</span
         >
-        <p class="mt-2 text-sm">Followers</p>
+        <p class="mt-2 text-sm"><%= counts[count][1] %></p>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 mt-4 gap-3">
-        <div class="bg-black p-4">
-          <h1 class="text-lg">Following</h1>
+      <div class="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-2">
+        <!-- prettier-ignore -->
+        <% counts.filter((_, index) => index !== count).forEach((count) => { %>
+        <a
+          class="bg-black p-4 hover:scale-105"
+          href="?count=<%= counts.findIndex((c) => c[0] === count[0]) %>"
+        >
           <span
-            id="following"
-            class="odometer font-['Roboto'] text-[2.5rem] xl:text-5xl leading-[1.05em]"
-            >0</span
+            id="<%= count[0] %>"
+            class="odometer font-['Roboto'] text-5xl leading-[1.05em] xl:text-6xl"
           >
-        </div>
-        <div class="bg-black p-4">
-          <h1 class="text-lg">Likes</h1>
-          <span
-            id="likes"
-            class="odometer font-['Roboto'] text-[2.5rem] xl:text-5xl leading-[1.05em]"
-            >0</span
-          >
-        </div>
+            0
+          </span>
+          <h1 class="text-sm"><%= count[1] %></h1>
+        </a>
+        <% }); %>
       </div>
-      <div class="bg-black p-4 mt-4 flex flex-col items-center">
+      <div class="mt-4 flex flex-col items-center bg-black p-4">
         <div id="chart" class="w-full"></div>
       </div>
     </main>
@@ -152,7 +151,10 @@
 
           if (chart.series[0].points.length === 3600)
             chart.series[0].data[0].remove();
-          chart.series[0].addPoint([Date.now(), data.counts.followers]);
+          chart.series[0].addPoint([
+            Date.now(),
+            parseInt(Object.entries(data.counts)[parseInt("<%= count %>")][1]),
+          ]);
         });
     }, 2000);
   </script>

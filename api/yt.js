@@ -3,29 +3,6 @@ const axios = require("axios");
 const router = express.Router();
 
 router.get("/channel/stats/:id", async (req, res) => {
-  let views = await axios
-    .get(
-      `https://mixerno.space/api/youtube-channel-counter/user/${req.params.id}`
-    )
-    .then((res) => {
-      return res.data.counts[3].count;
-    });
-  try {
-    if (req.params.id === "UCX6OQ3DkcsbYNE6H8uQQuVA") {
-      views = await axios
-        .get("https://mrbeast.livecounts.xyz/count")
-        .then((res) => {
-          return res.data.total_views;
-        });
-    } else if (req.params.id === "UC-lHJZR3Gqxm24_Vd_AJ5Yw") {
-      views = await axios
-        .get("https://pewdiepie.livecounts.xyz/count")
-        .then((res) => {
-          return res.data.total_views;
-        });
-    }
-  } catch {}
-
   try {
     const { data } = await axios.get(
       `https://livecounts.xyz/api/youtube-live-subscriber-count/live/${req.params.id}`
@@ -33,7 +10,7 @@ router.get("/channel/stats/:id", async (req, res) => {
     return res.json({
       counts: {
         subscribers: data.counts[0],
-        views,
+        views: data.counts[1],
         videos: data.counts[2],
         goal: data.counts[3],
       },

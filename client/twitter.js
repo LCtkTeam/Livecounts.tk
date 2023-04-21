@@ -8,6 +8,10 @@ router.get("/user/search", (_, res) => {
 
 router.get("/user/:username", async (req, res) => {
   const { username } = req.params;
+
+  let { count } = req.query;
+  if (!count || typeof count !== "string") count = "0";
+
   const { data } = await axios.get(
     `https://api.subscriberwars.space/twitter/${username}`
   );
@@ -15,6 +19,12 @@ router.get("/user/:username", async (req, res) => {
     username,
     name: data.displayName,
     avatar: data.pfp.replace("normal", "400x400"),
+    count: parseInt(count),
+    counts: [
+      ["followers", "Followers"],
+      ["following", "Following"],
+      ["tweets", "Tweets"],
+    ],
   });
 });
 

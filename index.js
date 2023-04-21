@@ -20,3 +20,10 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}.`);
 });
+
+process.on("uncaughtException", (err) => {
+  console.error(err);
+});
+process.on("unhandledRejection", (err) => {
+  console.error(err);
+});

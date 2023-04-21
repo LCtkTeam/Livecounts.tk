@@ -10,17 +10,17 @@
       @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
     </style>
   </head>
-  <body class="text-white bg-[#1b1b1b]">
+  <body class="bg-[#1b1b1b] text-white">
     <%- include('../../partials/navbar') %>
-    <main class="text-center m-4">
-      <div class="bg-black p-4 flex flex-col items-center">
+    <main class="m-4 text-center">
+      <div class="flex flex-col items-center bg-black p-4">
         <img
           src="<%= `https://www.banner.yt/${id}?width=1240` %>"
-          class="w-0 sm:w-full h-40 object-cover aspect-video rounded-lg"
+          class="aspect-video h-40 w-0 rounded-lg object-cover sm:w-full"
         />
         <img
           src="<%= `https://www.banner.yt/${id}/avatar` %>"
-          class="rounded-full h-40 absolute top-[108px]"
+          class="absolute top-[108px] h-40 rounded-full"
         />
         <h1 class="mt-2 text-3xl"><%= name %></h1>
         <div class="mt-1 flex flex-row justify-center">
@@ -28,39 +28,30 @@
           <h2 class="text-sm"><%= handle %></h2>
         </div>
         <span
-          id="subscribers"
-          class="odometer font-['Roboto'] text-7xl sm:text-7xl md:text-[5.5rem] lg:text-8xl xl:text-9xl leading-[1.05em]"
+          id="<%= counts[count][0] %>"
+          class="odometer font-['Roboto'] text-7xl leading-[1.05em] sm:text-7xl md:text-[5.5rem] lg:text-8xl xl:text-9xl"
           >0</span
         >
-        <p class="mt-2 text-sm">Subscribers</p>
+        <p class="mt-2 text-sm"><%= counts[count][1] %></p>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 mt-4 gap-3">
-        <div class="bg-black p-4">
-          <h1 class="text-lg">Total video views</h1>
+      <div class="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-3">
+        <!-- prettier-ignore -->
+        <% counts.filter((_, index) => index !== count).forEach((count) => { %>
+        <a
+          class="bg-black p-4 hover:scale-105"
+          href="?count=<%= counts.findIndex((c) => c[0] === count[0]) %>"
+        >
           <span
-            id="views"
-            class="odometer font-['Roboto'] text-[2.5rem] xl:text-5xl leading-[1.05em]"
-            >0</span
+            id="<%= count[0] %>"
+            class="odometer font-['Roboto'] text-5xl leading-[1.05em] xl:text-6xl"
           >
-        </div>
-        <div class="bg-black p-4">
-          <h1 class="text-lg">Videos</h1>
-          <span
-            id="videos"
-            class="odometer font-['Roboto'] text-[2.5rem] xl:text-5xl leading-[1.05em]"
-            >0</span
-          >
-        </div>
-        <div class="bg-black p-4">
-          <h1 class="text-lg">Goal</h1>
-          <span
-            id="goal"
-            class="odometer font-['Roboto'] text-[2.5rem] xl:text-5xl leading-[1.05em]"
-            >0</span
-          >
-        </div>
+            0
+          </span>
+          <h1 class="text-sm"><%= count[1] %></h1>
+        </a>
+        <% }); %>
       </div>
-      <div class="bg-black p-4 mt-4 flex flex-col items-center">
+      <div class="mt-4 flex flex-col items-center bg-black p-4">
         <div id="chart" class="w-full"></div>
       </div>
     </main>
@@ -167,7 +158,10 @@
 
           if (chart.series[0].points.length === 3600)
             chart.series[0].data[0].remove();
-          chart.series[0].addPoint([Date.now(), data.counts.subscribers]);
+          chart.series[0].addPoint([
+            Date.now(),
+            Object.entries(data.counts)[parseInt("<%= count %>")][1],
+          ]);
         });
     }, 2000);
   </script>

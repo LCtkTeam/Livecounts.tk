@@ -8,6 +8,10 @@ router.get("/user/search", (_, res) => {
 
 router.get("/user/:id", async (req, res) => {
   const { id } = req.params;
+
+  let { count } = req.query;
+  if (!count || typeof count !== "string") count = "0";
+
   const { data } = await axios.get(
     `https://api.subscriberwars.space/tiktok/v2/${id}`
   );
@@ -16,6 +20,12 @@ router.get("/user/:id", async (req, res) => {
     name: data.nickname,
     username: data.username,
     avatar: data.pfp,
+    count: parseInt(count),
+    counts: [
+      ["followers", "Followers"],
+      ["following", "Following"],
+      ["likes", "Likes"],
+    ],
   });
 });
 
