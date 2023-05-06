@@ -5,15 +5,15 @@
     }) %>
     <link rel="stylesheet" href="/ess/odometer.css" />
     <script src="/ess/odometer.js"></script>
-    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/10.3.3/highcharts.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
     </style>
   </head>
-  <body class="text-white bg-[#1b1b1b]">
+  <body class="bg-[#1b1b1b] text-white">
     <%- include('../partials/navbar') %>
-    <main class="text-center m-4">
-      <div class="bg-black p-4 flex flex-col items-center">
+    <main class="m-4 text-center">
+      <div class="flex flex-col items-center bg-black p-4">
         <img
           src="https://choccycounts.ch0ccym0lk.repl.co/Choccy_Statistics_Circle.png"
           width="80"
@@ -21,12 +21,12 @@
         <h1 class="mt-2 text-2xl">ChoccyCounts Clicker</h1>
         <span
           id="count"
-          class="odometer font-['Roboto'] text-7xl sm:text-7xl md:text-[5.5rem] lg:text-8xl xl:text-9xl leading-[1.05em]"
+          class="odometer font-['Roboto'] text-7xl leading-[1.05em] sm:text-7xl md:text-[5.5rem] lg:text-8xl xl:text-9xl"
           >0</span
         >
         <p class="mt-2 text-sm">Clicks</p>
       </div>
-      <div class="bg-black p-4 mt-4 flex flex-col items-center">
+      <div class="mt-4 flex flex-col items-center bg-black p-4">
         <div id="chart" class="w-full"></div>
       </div>
     </main>
