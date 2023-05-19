@@ -38,4 +38,11 @@ router.get("/popcat/:country", async (req, res) => {
   }
 });
 
+router.get("/global/1", async (req, res) => {
+  const { data } = await axios.get("http://global-clicker.mrcode.io/getpoints");
+  return res.json({
+    count: parseInt(data),
+  });
+});
+
 module.exports = router;

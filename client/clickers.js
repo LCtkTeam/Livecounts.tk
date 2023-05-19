@@ -30,4 +30,6 @@ router.get("/popcat/:country", async (req, res) => {
   });
 });
 
+router.get("/global/1", (_, res) => res.render("clickers/global/1"));
+
 module.exports = router;

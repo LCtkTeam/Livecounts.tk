@@ -3,73 +3,71 @@
   <head>
     <%- include('./partials/head', { title: "Home" }) %>
   </head>
-  <body class="text-white bg-[#1b1b1b]">
+  <body class="bg-[#1b1b1b] text-white">
     <%- include('./partials/navbar') %>
-    <main class="text-center m-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    <main class="m-4 text-center">
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <div class="bg-black p-5">
-          <h1 class="flex justify-center items-center text-xl text-red-600">
+          <h1 class="flex items-center justify-center text-xl text-red-600">
             <i class="bi bi-youtube mr-1"></i> YouTube
           </h1>
-          <div>
+          <div class="flex flex-col gap-1">
             <a href="/youtube/channel/search" class="text-3xl font-bold"
               >Channel statistics</a
             >
-            <br />
             <a href="/youtube/video/search" class="text-3xl font-bold"
               >Video statistics</a
             >
-            <br />
             <a href="/youtube/stream/search" class="text-3xl font-bold"
               >Stream statistics</a
             >
-            <br />
             <a href="/youtube/total" class="text-3xl font-bold">Total videos</a>
           </div>
         </div>
         <div class="bg-black p-5">
-          <h1 class="flex justify-center items-center text-xl text-cyan-400">
+          <h1 class="flex items-center justify-center text-xl text-cyan-400">
             <i class="bi bi-twitter mr-1"></i> Twitter
           </h1>
-          <div>
+          <div class="flex flex-col gap-1">
             <a href="/twitter/user/search" class="text-3xl font-bold"
               >User statistics</a
             >
           </div>
         </div>
         <div class="bg-black p-5">
-          <h1 class="flex justify-center items-center text-xl text-pink-500">
+          <h1 class="flex items-center justify-center text-xl text-pink-500">
             <i class="bi bi-tiktok mr-1"></i> TikTok
           </h1>
-          <div>
+          <div class="flex flex-col gap-1">
             <a href="/tiktok/user/search" class="text-3xl font-bold"
               >User statistics</a
             >
           </div>
         </div>
         <div class="bg-black p-5">
-          <h1 class="flex justify-center items-center text-xl text-orange-500">
+          <h1 class="flex items-center justify-center text-xl text-orange-500">
             <i class="bi bi-mouse2-fill mr-1"></i> Clickers
           </h1>
-          <div>
+          <div class="flex flex-col gap-1">
+            <a href="/clickers/global/1" class="text-3xl font-bold"
+              >Global Clicker 1</a
+            >
             <a href="/clickers/toastify" class="text-3xl font-bold"
               >Toastify Clicker</a
             >
-            <br />
             <a href="/clickers/choccy" class="text-3xl font-bold"
               >ChoccyCounts Clicker</a
             >
-            <br />
             <a href="/clickers/popcat" class="text-3xl font-bold"
               >Pop Cat Clicker</a
             >
           </div>
         </div>
         <div class="bg-black p-5">
-          <h1 class="flex justify-center items-center text-xl text-[#fae360]">
+          <h1 class="flex items-center justify-center text-xl text-[#fae360]">
             <i class="bi bi-sort-numeric-down mr-1"></i> Countify
           </h1>
-          <div>
+          <div class="flex flex-col gap-1">
             <a
               href="/countify/stats/941671046724091968"
               class="text-3xl font-bold"
