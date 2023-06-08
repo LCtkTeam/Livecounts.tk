@@ -9,13 +9,6 @@ router.get("/toastify", async (_, res) => {
   return res.json(data);
 });
 
-router.get("/choccycounts", async (_, res) => {
-  const { data } = await axios.get(
-    "https://choccycountsapi.imtca.repl.co/visits"
-  );
-  return res.json(data);
-});
-
 router.get("/popcat/all", async (_, res) => {
   try {
     const { data } = await axios.get("https://leaderboard.popcat.click");

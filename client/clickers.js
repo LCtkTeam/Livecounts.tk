@@ -7,10 +7,6 @@ router.get("/toastify", async (_, res) => {
   res.render("clickers/toastify");
 });
 
-router.get("/choccy", (_, res) => {
-  res.render("clickers/choccy");
-});
-
 router.get("/popcat", (_, res) => {
   res.render("clickers/popcat/stats", {
     flag: "https://em-content.zobj.net/thumbs/240/microsoft/319/globe-showing-europe-africa_1f30d.png",
